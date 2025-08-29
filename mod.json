@@ -1,0 +1,34 @@
+{
+	"geode": "4.7.0",
+	"gd": {
+		"win": "2.2074",
+		"android": "2.2074",
+		"mac": "2.2074",
+		"ios": "2.2074"
+	},
+	"id": "techstudent10.discord_rich_presence",
+	"name": "Discord Rich Presence",
+	"version": "v4.0.0",
+	"developer": "TechStudent10",
+	"description": "DiscordRPC for Geometry Dash",
+	"settings": {
+		"private-info": {
+			"name": "Show sensitive info",
+			"description": "Allows this mod to show things like level names in the creator tab for the world to see (no not your password)",
+			"type": "bool",
+			"default": false
+		},
+		"idling": {
+			"name": "Show idle status",
+			"description": "Will change your status to idle when GD is unfocused",
+			"type": "bool",
+			"default": true
+		}
+	},
+	"dependencies": {
+		"ninxout.champions": {
+			"importance": "suggested",
+			"version": "1.0.0-alpha.1"
+		}
+	}
+}
