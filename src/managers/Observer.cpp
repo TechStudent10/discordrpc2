@@ -1,7 +1,7 @@
 #include "Observer.hpp"
 #include <managers/RPCManager.hpp>
 
-#include <ninxout.champions/include/api/include.hpp>
+#include <champions.hpp>
 
 #ifndef GEODE_IS_WINDOWS
 #include <cxxabi.h>
