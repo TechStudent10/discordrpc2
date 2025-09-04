@@ -29,6 +29,7 @@ void RPCManager::setRPC(RPCOptions options) {
     currentOptions = options;
 
     auto& presence = discord::Presence::get();
+    presence.clear();
 
     presence
         .setState(options.state.empty() ? defaultState : options.state)

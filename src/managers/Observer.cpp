@@ -199,14 +199,15 @@ void Observer::updateRPC() {
         callIf<LevelEditorLayer>([this, &options](LevelEditorLayer* layer) {
             // TODO: hide sensitive info if user says to
             auto level = layer->m_level;
+            auto sensitiveMode = Mod::get()->getSettingValue<bool>("private-info");
             options.copyFrom({
                 .state = isConnectedToEC ? "Editing a level in EditorCollab" : "Editing a level",
-                .details = fmt::format("Working on {}", level->m_levelName),
+                .details = fmt::format("Working on {}", sensitiveMode ? level->m_levelName : "a level"),
                 .largeImage = isConnectedToEC ? "https://github.com/editor-collab/ClientUI/blob/main/logo.png?raw=true" : "gd-large",
                 .smallImage = "editor",
-                .smallImageText = isConnectedToEC ?
+                .smallImageText = sensitiveMode ? (isConnectedToEC ?
                     fmt::format("{} objects", layer->m_objectCount.value()) :
-                    fmt::format("Worked on for {} | {} objects", workingTime(level->m_workingTime), layer->m_objectCount.value())
+                    fmt::format("Worked on for {} | {} objects", workingTime(level->m_workingTime), layer->m_objectCount.value())) : ""
             });
         });
         callIf<LevelBrowserLayer>([&options](LevelBrowserLayer* layer) {
@@ -286,17 +287,27 @@ void Observer::updateRPC() {
                 state = "Playing in a Champions game";
             }
 
+            auto sensitiveMode = Mod::get()->getSettingValue<bool>("private-info");
             auto starCount = level->m_stars.value();
+
+            if (sensitiveMode && level->m_unlisted) {
+                state = "Playing a level";
+                details = "Unlisted.";
+                starCount = 0;
+            }
+
+            std::vector<RPCButton> buttons({
+                {
+                    .title = "Open level in browser",
+                    .url = fmt::format("https://gdbrowser.com/{}", level->m_levelID)
+                }
+            });
+            std::vector<RPCButton> noButtons;
 
             options.copyFrom({
                 .state = state,
                 .details = details,
-                .buttons = {
-                    {
-                        .title = "Open level in browser",
-                        .url = fmt::format("https://gdbrowser.com/{}", level->m_levelID)
-                    }
-                },
+                .buttons = sensitiveMode ? buttons : noButtons,
                 .largeImage = inChampions ? "https://cdn.discordapp.com/icons/1398898354145984612/872e7357735435a48e24d04a557e4467.png?size=480" : "gd-large",
                 .smallImage = RPCManager::getAssetKey(level),
                 .smallImageText = starCount != 0 ?
