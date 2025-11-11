@@ -1,3 +1,6 @@
+## v4.1.0
+* Fix sensitive mode
+
 ## v4.0.0
 * COMPLETELY rewrite DRPC to have better code and have more compatability with mods
 
