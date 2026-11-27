@@ -2,11 +2,9 @@
 #include <managers/RPCManager.hpp>
 #include <managers/Observer.hpp>
 
-using namespace geode::prelude;
-
 std::string getSysName() {
 #ifdef GEODE_IS_WINDOWS
-	if (!platform::isWine()) {
+	if (!geode::utils::platform::isWine()) {
     	return "Windows";
     }
     else {
