@@ -5,8 +5,13 @@
 using namespace geode::prelude;
 
 std::string getSysName() {
-#ifdef GEODE_WINDOWS
-    return "Windows";
+#ifdef GEODE_IS_WINDOWS
+	if (!platform::isWine()) {
+    	return "Windows";
+    }
+    else {
+    	return "Linux";
+    }
 #else
     return "macOS";
 #endif
