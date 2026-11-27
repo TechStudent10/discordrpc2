@@ -1,13 +1,13 @@
-# TeamSpeak Poor Existence
+# Discord Rich Presence
 
-Integrating Geometry Dash with your TeamSpeak Status
+Integrating Geometry Dash with your Discord Status
 
 ### Support
-TSPE has support for almost no mods, excluding:
-- Mooned
-- PlayerExpel
-- Losers (when it comes out)
+DRPC has support for many mods, including:
+- Globed
+- EditorCollab
+- Champions (when it comes out)
 
 ### Credits
 - jay for the mod logo!
-- Sunrise/teamspeak-presence (mostly developed by 🐟) for maintaining a sensible fork of teamspeak-rpc
+- Eclipse/discord-presence (mostly developed by Prevter) for maintaining a sensible fork of discord-rpc

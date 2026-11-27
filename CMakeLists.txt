@@ -22,7 +22,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE src/)
 
 add_subdirectory($ENV{GEODE_SDK} ${CMAKE_CURRENT_BINARY_DIR}/geode)
 
-CPMAddPackage("gh:EclipseMenu/discord-presence#3b50b08")
+CPMAddPackage("https://git.eclipse.menu/EclipseMenu/discord-presence.git#0d7d32e0ef")
 
 target_link_libraries(${PROJECT_NAME} discord-rpc)
 

@@ -70,7 +70,6 @@ Observer::Observer() {
     // });
 }
 
-// stolen, er, borrowed from BetterInfo (https://github.com/Cvolton/betterinfo-geode/blob/master/src/utils/TimeUtils.cpp)
 std::string workingTime(int value){
     if(value < 0) return fmt::format("NA ({})", value);
     if(value == 0) return "NA";
@@ -79,12 +78,12 @@ std::string workingTime(int value){
     int minutes = (value % 3600) / 60;
     int seconds = value % 60;
 
-    std::ostringstream stream;
-    if(hours > 0) stream << hours << "h ";
-    if(minutes > 0) stream << minutes << "m ";
-    stream << seconds << "s";
-
-    return stream.str();
+    fmt::memory_buffer out;
+    if (hours > 0) fmt::format_to(std::back_inserter(out), "{}h ", hours);  
+    if (minutes > 0) fmt::format_to(std::back_inserter(out), "{}m ", minutes);
+    fmt::format_to(std::back_inserter(out), "{}s", seconds);
+    
+    return fmt::to_string(out);
 }
 
 void Observer::updateRPC() {
@@ -250,18 +249,18 @@ void Observer::updateRPC() {
             std::string bestString;
             if (level->isPlatformer()) {
                 int sec = round(level->m_bestTime / 1000);
-                bestString = std::to_string(sec) + "s";
+                bestString = fmt::format("{}s", sec);
 
                 if (level->m_bestTime == 0) {
                     bestString = "No Best Time";
                 }
             } else {
-                bestString = std::to_string(level->m_normalPercent.value()) + "%";
+                bestString = fmt::format("{}%", level->m_normalPercent.value());
             }
 
             std::string state = (layer->m_isPracticeMode ? "Practicing" : "Playing");
             if (level->isPlatformer()) {
-                state = state + " a platformer";
+                state += " a platformer";
             }
 
             bool isDaily = level->m_dailyID.value() != 0;
@@ -269,10 +268,10 @@ void Observer::updateRPC() {
 
             if (isDaily) {
                 if (isDemon) {
-                    state = state + " the weekly";
+                    state += " the weekly";
                 }
                 else {
-                    state = state + " the daily";
+                    state += " the daily";
                 }
             }
 
