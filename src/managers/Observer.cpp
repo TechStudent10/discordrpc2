@@ -83,7 +83,7 @@ std::string workingTime(int value){
     if (minutes > 0) fmt::format_to(std::back_inserter(out), "{}m ", minutes);
     fmt::format_to(std::back_inserter(out), "{}s", seconds);
     
-    return std::string(out.data());
+    return fmt::to_string(out);
 }
 
 void Observer::updateRPC() {
